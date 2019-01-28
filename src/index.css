@@ -22,6 +22,7 @@ code {
 
 #map {
   position: absolute;
+  left: 30%;
   width: 70%;
   height: 100%;
   background: red;
