@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {Map, Marker, GoogleApiWrapper, mapTypeControlOptions} from 'google-maps-react';
 import {Venues}  from './Venues'
 
   export class MapContainer extends Component {
    
+    state = {
+      mapTypeControlOptions: false,
+    }
 
     render() {
+
+      console.log(Venues)
+
       return (
         <div id="map">
             <Map 
@@ -15,10 +21,14 @@ import {Venues}  from './Venues'
                     lng: 151.209900
                     }}
                 zoom={15}>
-                 <Marker
-    name={Venues.name}
-    position={Venues.position} />
+                {Venues.map((venue) => (
+                  <Marker
+                  name={venue.name}
+                  position={venue.position} 
+                  />
+                ))}
             </Map>
+
         </div>
      );
      }
