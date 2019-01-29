@@ -1,12 +1,15 @@
 import React from 'react'
 
-class Menu extends React.Component {
+class MenuBar extends React.Component {
 
     render() {
 
         return (
-            <div className="menu">
-            
+            <div className="menuBar">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                </ul>
             </div>
         )
 
@@ -14,4 +17,4 @@ class Menu extends React.Component {
 
 }
 
-export default Menu;
+export default MenuBar;
