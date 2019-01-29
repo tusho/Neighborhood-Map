@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MenuBar from './Menu'
 import MapContainer from './Map'
-import { slide as Menu } from 'react-burger-menu'
+import { push as Menu } from 'react-burger-menu'
 
 
 
@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Menu>
+        <Menu noOverlay width={ '20%' }>
           <MenuBar />
         </Menu>
         <MapContainer />

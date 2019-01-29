@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper} from 'google-maps-react';
+import Venues from './Venues'
 
   export class MapContainer extends Component {
     render() {
