@@ -1,4 +1,5 @@
 import React from 'react'
+import sortBy from 'sort-by'
 
 class MenuBar extends React.Component {
 
@@ -8,11 +9,13 @@ class MenuBar extends React.Component {
 
     const {markerObjects} = this.props
 
+    markerObjects.sort(sortBy('name'));
+
         return (
             <div className="menuBar">
-                <ul>
+                <ul className="venue-list">
                     {markerObjects.map((markerobject) => (
-                        <li key={markerobject.name}>{markerobject.name}</li>
+                        <li className="venue-item" key={markerobject.name}>{markerobject.name}</li>
                     ))}
                 </ul>
             </div>

@@ -1,7 +1,7 @@
 export const Venues = [
     {
         name: 'Ms Gs',
-        position: {lat: -33.864113, lng: 151.20798},
+        position: {lat: -33.87263, lng: 151.22261},
         category: 'Restaurant',
         address: '155 Victoria St, Potts Point, NSW 2011',
         image: 'http://chubbyhubby.net/wp-content/uploads/2013/03/Ms-Gs-counters-and-sitting-210x210.jpg',

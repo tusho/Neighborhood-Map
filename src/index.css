@@ -19,6 +19,17 @@ code {
   height: 100%;
 }
 
+.venue-list {
+  padding: 0;
+}
+
+.venue-item {
+  list-style-type: none;
+  width: 100%;
+  padding: 10px 5px;
+  text-align: left;
+}
+
 /* Burger Button */
 .bm-burger-button {
   position: fixed;
