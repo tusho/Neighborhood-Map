@@ -1,37 +1,21 @@
 import React, { Component } from 'react';
-import {Map, Marker, GoogleApiWrapper, InfoWindow} from 'google-maps-react';
+import {Map, Marker, GoogleApiWrapper, InfoWindow} from 'google-maps-react'
 import {Venues}  from './Venues'
+import MenuBar from './Menu'
+import { push as Menu } from 'react-burger-menu'
 
   export class MapContainer extends Component {
-   
-    state = {
-      selectedVenue: this.props,
-      activeMarker: this.marker,
-      showingInfoWindow: true
-    }
-
-    onMarkerClick = (props, marker, e) =>
-    this.setState({
-      selectedVenue: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
-
-    onClose = props => {
-      if (this.state.showingInfoWindow) {
-        this.setState({
-          showingInfoWindow: false,
-          activeMarker: null
-        });
-      }
-    };
 
     render() {
-
-      console.log(this.props)
+      
+      
+      const {onClose, onMarkerClick, activeMarker, showingInfoWindow, selectedVenue} = this.props
 
       return (
         <div id="map">
+            <Menu noOverlay width={ '320px' }>
+              <MenuBar />
+            </Menu>
             <Map 
                 google={this.props.google} 
                 initialCenter={{
@@ -41,7 +25,7 @@ import {Venues}  from './Venues'
                 zoom={15}>
                 {Venues.map((venue) => (
                   <Marker
-                  onClick={this.onMarkerClick}
+                  onClick={onMarkerClick}
                   key={venue.name}
                   name={venue.name}
                   position={venue.position} 
@@ -51,16 +35,16 @@ import {Venues}  from './Venues'
                   />
                 ))}
                 <InfoWindow
-                  marker={this.state.activeMarker}
-                  visible={this.state.showingInfoWindow}
-                  onClose={this.onClose}
+                  marker={activeMarker}
+                  visible={showingInfoWindow}
+                  onClose={onClose}
                 >
                   <div>
-                    <h4>{this.state.selectedVenue.name}</h4>
-                    <div className="venue-image" style={{ width: 200, height: 200, backgroundImage: `url(${this.state.selectedVenue.image})` }}></div>
+                    <h4>{selectedVenue.name}</h4>
+                    <div className="venue-image" style={{ width: 200, height: 200, backgroundImage: `url(${selectedVenue.image})` }}></div>
                     <ul>
-                      <li>Address: {this.state.selectedVenue.address}</li>
-                      <li>Category: {this.state.selectedVenue.category}</li>
+                      <li>Address: {selectedVenue.address}</li>
+                      <li>Category: {selectedVenue.category}</li>
                     </ul>
                   </div>
                 </InfoWindow>
