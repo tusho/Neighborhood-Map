@@ -12,7 +12,7 @@ import {Venues}  from './Venues'
 
     onMarkerClick = (props, marker, e) =>
     this.setState({
-      selectedPlace: props,
+      selectedVenue: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
@@ -28,7 +28,7 @@ import {Venues}  from './Venues'
 
     render() {
 
-      console.log(Venues)
+      console.log(this.props)
 
       return (
         <div id="map">
@@ -45,6 +45,9 @@ import {Venues}  from './Venues'
                   key={venue.name}
                   name={venue.name}
                   position={venue.position} 
+                  category={venue.category}
+                  image={venue.image}
+                  address={venue.address}
                   />
                 ))}
                 <InfoWindow
@@ -54,6 +57,11 @@ import {Venues}  from './Venues'
                 >
                   <div>
                     <h4>{this.state.selectedVenue.name}</h4>
+                    <div className="venue-image" style={{ width: 200, height: 200, backgroundImage: `url(${this.state.selectedVenue.image})` }}></div>
+                    <ul>
+                      <li>Address: {this.state.selectedVenue.address}</li>
+                      <li>Category: {this.state.selectedVenue.category}</li>
+                    </ul>
                   </div>
                 </InfoWindow>
             </Map>
