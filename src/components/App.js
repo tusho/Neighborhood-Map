@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Menu noOverlay width={ '20%' }>
+        <Menu noOverlay width={ '320px' }>
           <MenuBar />
         </Menu>
         <MapContainer />
