@@ -6,6 +6,19 @@ import { push as Menu } from 'react-burger-menu'
 
   export class MapContainer extends Component {
 
+    constructor(props) {
+      super(props);
+      this.state = {
+        markerObjects: []
+      };
+  
+      this.onMarkerMounted = element => {
+        this.setState(prevState => ({
+          markerObjects: [...prevState.markerObjects, element.marker]
+        }))
+      };
+    }
+
     render() {
       
       
@@ -14,7 +27,7 @@ import { push as Menu } from 'react-burger-menu'
       return (
         <div id="map">
             <Menu noOverlay width={ '320px' }>
-              <MenuBar />
+              <MenuBar markerObjects={this.state.markerObjects}/>
             </Menu>
             <Map 
                 google={this.props.google} 
@@ -26,7 +39,8 @@ import { push as Menu } from 'react-burger-menu'
                 {Venues.map((venue) => (
                   <Marker
                   onClick={onMarkerClick}
-                  key={venue.name}
+                  ref={this.onMarkerMounted}
+                  key={venue.id}
                   name={venue.name}
                   position={venue.position} 
                   category={venue.category}

@@ -7,11 +7,11 @@ import MapContainer from './Map'
 
 class App extends Component {
 
-     state={
-      activeMarker: this.marker,
-      selectedVenue: this.props,
-      showingInfoWindow: false
-     }
+  state={
+  activeMarker: this.marker,
+  selectedVenue: this.props,
+  showingInfoWindow: false
+  }
 
 
   onMarkerClick = (props, marker, e) =>

@@ -2,13 +2,18 @@ import React from 'react'
 
 class MenuBar extends React.Component {
 
+    
+
     render() {
+
+    const {markerObjects} = this.props
 
         return (
             <div className="menuBar">
                 <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
+                    {markerObjects.map((markerobject) => (
+                        <li key={markerobject.name}>{markerobject.name}</li>
+                    ))}
                 </ul>
             </div>
         )
