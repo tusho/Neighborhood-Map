@@ -9,33 +9,26 @@ import { push as Menu } from 'react-burger-menu'
     constructor(props) {
       super(props);
       this.state = {
-        markerObjects: []
-      };
-  
-      this.onMarkerMounted = element => {
-        this.setState(prevState => ({
-          markerObjects: [...prevState.markerObjects, element.marker]
-        }))
+        displayedVenues: Venues
       };
     }
 
     handleEvent  = (e) => {
       const selectedMarker = e.target.value
-      console.log(this.state.markerObjects[0].category.toLowerCase() + selectedMarker)
+      console.log(Venues)
       this.setState(prevState => ({
-        markerObjects: this.state.markerObjects.filter(markerobject => markerobject.category.toLowerCase() == selectedMarker)
+        displayedVenues: Venues.filter(venue => venue.category.toLowerCase() == selectedMarker)
       }))
     }
 
     render() {
-      
       
       const {onClose, onMarkerClick, activeMarker, showingInfoWindow, selectedVenue} = this.props
 
       return (
         <div id="map">
             <Menu noOverlay width={ '320px' }>
-              <MenuBar markerObjects={this.state.markerObjects} handleEvent={this.handleEvent}/>
+              <MenuBar displayedVenues={this.state.displayedVenues} handleEvent={this.handleEvent}/>
             </Menu>
             <Map 
                 google={this.props.google} 
@@ -44,13 +37,15 @@ import { push as Menu } from 'react-burger-menu'
                     lng: 151.209900
                     }}
                 zoom={15}>
-                {Venues.map((venue) => (
+                {this.state.displayedVenues.map((venue) => (
                   <Marker
                   onClick={onMarkerClick}
                   ref={this.onMarkerMounted}
                   key={venue.id}
                   name={venue.name}
-                  position={venue.position} 
+                  position={venue.position}
+                  latitude={venue.position.lng}
+                  longitute={venue.position.lat}
                   category={venue.category}
                   image={venue.image}
                   address={venue.address}
