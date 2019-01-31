@@ -19,6 +19,14 @@ import { push as Menu } from 'react-burger-menu'
       };
     }
 
+    handleEvent  = (e) => {
+      const selectedMarker = e.target.value
+      console.log(this.state.markerObjects[0].category.toLowerCase() + selectedMarker)
+      this.setState(prevState => ({
+        markerObjects: this.state.markerObjects.filter(markerobject => markerobject.category.toLowerCase() == selectedMarker)
+      }))
+    }
+
     render() {
       
       
@@ -27,7 +35,7 @@ import { push as Menu } from 'react-burger-menu'
       return (
         <div id="map">
             <Menu noOverlay width={ '320px' }>
-              <MenuBar markerObjects={this.state.markerObjects}/>
+              <MenuBar markerObjects={this.state.markerObjects} handleEvent={this.handleEvent}/>
             </Menu>
             <Map 
                 google={this.props.google} 
