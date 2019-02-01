@@ -15,21 +15,21 @@ class MenuBar extends React.Component {
     displayedVenues.sort(sortBy('name'));
 
     if (displayedVenues.length !== Venues.length) { 
-        clearFilter = <p className="clearFilter" onClick={resetFilter}>Clear Filter</p>
+        clearFilter = <button className="clearFilter" onClick={resetFilter}>(Clear Filter)</button>
     }
         return (
             <div className="menuBar">
                 <h2>Venue List</h2>
                 <div className="venue-filter">
                     <select className="filter-dropdown" value={clearDropdown} onChange={(e) => handleEvent(e)}>
-                        <option value="" selected='selected' disabled>Filter selection...</option>
+                        <option value="" defaultValue='selected' disabled>Filter selection...</option>
                         <option value="bar">Bars</option>
                         <option value="cafe">Cafés</option>
                         <option value="restaurant">Restaurants</option>
                     </select>
                   </div>
-                <p className="filterCopy">Showing {displayedVenues.length} of {Venues.length} locations.</p>
-                {clearFilter}
+                <p className="filterCopy">Showing {displayedVenues.length} of {Venues.length} locations. {clearFilter}</p>
+                
                 <ul className="venue-list">
                     {displayedVenues.map((venue) => (
                         <li className="venue-item" key={venue.name}>{venue.name}</li>

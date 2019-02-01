@@ -18,7 +18,7 @@ import { push as Menu } from 'react-burger-menu'
       const selectedMarker = e.target.value
       console.log(Venues)
       this.setState(prevState => ({
-        displayedVenues: Venues.filter(venue => venue.category.toLowerCase() == selectedMarker)
+        displayedVenues: Venues.filter(venue => venue.category.toLowerCase() === selectedMarker)
       }))
     }
 

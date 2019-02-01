@@ -38,6 +38,22 @@ code {
   background: white;
 }
 
+.filterCopy {
+  font-size: 0.8em;
+  padding-left: 5px;
+}
+
+.clearFilter {
+  font-size: 0.8em;
+  color: #20ABCA;
+  border: none;
+}
+
+.clearFilter:hover {
+  color: #15778C;
+  cursor: pointer
+}
+
 /* Burger Button */
 .bm-burger-button {
   position: fixed;
