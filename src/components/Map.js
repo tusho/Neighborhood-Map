@@ -10,22 +10,23 @@ import { push as Menu } from 'react-burger-menu'
       super(props);
       this.state = {
         displayedVenues: Venues,
-        clearDropdown: ''
+        dropdownValue: 'selected'
       };
     }
 
     handleEvent  = (e) => {
       const selectedMarker = e.target.value
-      console.log(Venues)
+      console.log(this.dropdownValue)
       this.setState(prevState => ({
-        displayedVenues: Venues.filter(venue => venue.category.toLowerCase() === selectedMarker)
+        displayedVenues: Venues.filter(venue => venue.category.toLowerCase() === selectedMarker),
+        dropdownValue: selectedMarker
       }))
     }
 
     resetFilter  = () => {
       this.setState(prevState => ({
         displayedVenues: Venues,
-        clearDropdown: 'selected'
+        dropdownValue: 'selected'
       }))
     }
 
@@ -36,7 +37,7 @@ import { push as Menu } from 'react-burger-menu'
       return (
         <div id="map">
             <Menu noOverlay width={ '350px' }>
-              <MenuBar displayedVenues={this.state.displayedVenues} handleEvent={this.handleEvent} resetFilter={this.resetFilter} clearDropdown={this.clearDropdown}/>
+              <MenuBar displayedVenues={this.state.displayedVenues} handleEvent={this.handleEvent} resetFilter={this.resetFilter} dropdownValue={this.state.dropdownValue}/>
             </Menu>
             <Map 
                 google={this.props.google} 

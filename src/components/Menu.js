@@ -8,10 +8,9 @@ class MenuBar extends React.Component {
 
     render() {
 
-    const {displayedVenues, handleEvent, resetFilter, clearDropdown} = this.props
+    const {displayedVenues, handleEvent, resetFilter, dropdownValue} = this.props
     
     let clearFilter
-
     displayedVenues.sort(sortBy('name'));
 
     if (displayedVenues.length !== Venues.length) { 
@@ -21,8 +20,8 @@ class MenuBar extends React.Component {
             <div className="menuBar">
                 <h2>Venue List</h2>
                 <div className="venue-filter">
-                    <select className="filter-dropdown" value={clearDropdown} onChange={(e) => handleEvent(e)}>
-                        <option value="" defaultValue='selected' disabled>Filter selection...</option>
+                    <select value={dropdownValue} className="filter-dropdown" onChange={(e) => handleEvent(e)}>
+                        <option value="selected" disabled>Filter selection...</option>
                         <option value="bar">Bars</option>
                         <option value="cafe">Cafés</option>
                         <option value="restaurant">Restaurants</option>
