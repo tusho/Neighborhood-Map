@@ -9,7 +9,8 @@ import { push as Menu } from 'react-burger-menu'
     constructor(props) {
       super(props);
       this.state = {
-        displayedVenues: Venues
+        displayedVenues: Venues,
+        clearDropdown: ''
       };
     }
 
@@ -21,14 +22,21 @@ import { push as Menu } from 'react-burger-menu'
       }))
     }
 
+    resetFilter  = () => {
+      this.setState(prevState => ({
+        displayedVenues: Venues,
+        clearDropdown: 'selected'
+      }))
+    }
+
     render() {
       
       const {onClose, onMarkerClick, activeMarker, showingInfoWindow, selectedVenue} = this.props
 
       return (
         <div id="map">
-            <Menu noOverlay width={ '320px' }>
-              <MenuBar displayedVenues={this.state.displayedVenues} handleEvent={this.handleEvent}/>
+            <Menu noOverlay width={ '350px' }>
+              <MenuBar displayedVenues={this.state.displayedVenues} handleEvent={this.handleEvent} resetFilter={this.resetFilter} clearDropdown={this.clearDropdown}/>
             </Menu>
             <Map 
                 google={this.props.google} 

@@ -1,5 +1,6 @@
 import React from 'react'
 import sortBy from 'sort-by'
+import { Venues } from './Venues';
 
 class MenuBar extends React.Component {
 
@@ -7,21 +8,28 @@ class MenuBar extends React.Component {
 
     render() {
 
-    const {displayedVenues, handleEvent} = this.props
+    const {displayedVenues, handleEvent, resetFilter, clearDropdown} = this.props
+    
+    let clearFilter
 
     displayedVenues.sort(sortBy('name'));
 
+    if (displayedVenues.length !== Venues.length) { 
+        clearFilter = <p className="clearFilter" onClick={resetFilter}>Clear Filter</p>
+    }
         return (
             <div className="menuBar">
                 <h2>Venue List</h2>
                 <div className="venue-filter">
-                    <select className="filter-dropdown" onChange={(e) => handleEvent(e)}>
-                        <option value="" selected="selected" disabled>Filter selection...</option>
+                    <select className="filter-dropdown" value={clearDropdown} onChange={(e) => handleEvent(e)}>
+                        <option value="" selected='selected' disabled>Filter selection...</option>
                         <option value="bar">Bars</option>
                         <option value="cafe">Cafés</option>
                         <option value="restaurant">Restaurants</option>
                     </select>
                   </div>
+                <p className="filterCopy">Showing {displayedVenues.length} of {Venues.length} locations.</p>
+                {clearFilter}
                 <ul className="venue-list">
                     {displayedVenues.map((venue) => (
                         <li className="venue-item" key={venue.name}>{venue.name}</li>
