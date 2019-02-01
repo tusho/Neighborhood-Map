@@ -32,12 +32,12 @@ import { push as Menu } from 'react-burger-menu'
 
     render() {
       
-      const {onClose, onMarkerClick, activeMarker, showingInfoWindow, selectedVenue} = this.props
+      const {onClose, onMarkerClick, activeMarker, onListClick, showingInfoWindow, selectedVenue} = this.props
 
       return (
         <div id="map">
             <Menu noOverlay width={ '350px' }>
-              <MenuBar displayedVenues={this.state.displayedVenues} handleEvent={this.handleEvent} resetFilter={this.resetFilter} dropdownValue={this.state.dropdownValue}/>
+              <MenuBar displayedVenues={this.state.displayedVenues} handleEvent={this.handleEvent} resetFilter={this.resetFilter} dropdownValue={this.state.dropdownValue} onListClick={onListClick}/>
             </Menu>
             <Map 
                 google={this.props.google} 
@@ -49,7 +49,6 @@ import { push as Menu } from 'react-burger-menu'
                 {this.state.displayedVenues.map((venue) => (
                   <Marker
                   onClick={onMarkerClick}
-                  ref={this.onMarkerMounted}
                   key={venue.id}
                   name={venue.name}
                   position={venue.position}

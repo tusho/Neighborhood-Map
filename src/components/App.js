@@ -10,7 +10,8 @@ class App extends Component {
   state={
   activeMarker: this.marker,
   selectedVenue: this.props,
-  showingInfoWindow: false
+  showingInfoWindow: false,
+  test: true
   }
 
 
@@ -21,6 +22,15 @@ class App extends Component {
     showingInfoWindow: true
   });
 
+  onListClick  = (e, venue, marker) => {
+    console.log(venue)
+    this.setState({
+      showingInfoWindow: true,
+      selectedVenue: venue,
+      activeMarker: e.target.value
+    })
+  }
+
   onClose = props => {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -30,13 +40,11 @@ class App extends Component {
     }
   };
 
-
-
   render() {
     return (
       <div className="App">
 
-        <MapContainer onMarkerClick={this.onMarkerClick} onClose={this.onClose} activeMarker={this.state.activeMarker} showingInfoWindow={this.state.showingInfoWindow} selectedVenue={this.state.selectedVenue}/>
+        <MapContainer onMarkerClick={this.onMarkerClick} onListClick={this.onListClick} onClose={this.onClose} activeMarker={this.state.activeMarker} showingInfoWindow={this.state.showingInfoWindow} selectedVenue={this.state.selectedVenue} filterMarkers={this.filterMarkers}/>
       </div>
     );
   }
