@@ -10,7 +10,8 @@ import { push as Menu } from 'react-burger-menu'
       super(props);
       this.state = {
         displayedVenues: Venues,
-        dropdownValue: 'selected'
+        dropdownValue: 'selected',
+        showingInfoWindow: false
       };
     }
 
@@ -31,16 +32,16 @@ import { push as Menu } from 'react-burger-menu'
     }
 
     render() {
-      
-      const {onClose, onMarkerClick, activeMarker, onListClick, showingInfoWindow, selectedVenue} = this.props
+
+      const {onClose, toggleInfoWindow, onListClick, showingInfoWindow, selectedVenue, windowPosition} = this.props
 
       return (
         <div id="map">
             <Menu noOverlay width={ '350px' }>
               <MenuBar displayedVenues={this.state.displayedVenues} handleEvent={this.handleEvent} resetFilter={this.resetFilter} dropdownValue={this.state.dropdownValue} onListClick={onListClick}/>
             </Menu>
-            <Map 
-                google={this.props.google} 
+            <Map
+                google={this.props.google}
                 initialCenter={{
                     lat: -33.870843,
                     lng: 151.209900
@@ -48,7 +49,7 @@ import { push as Menu } from 'react-burger-menu'
                 zoom={15}>
                 {this.state.displayedVenues.map((venue) => (
                   <Marker
-                  onClick={onMarkerClick}
+                  onClick={toggleInfoWindow}
                   key={venue.id}
                   name={venue.name}
                   position={venue.position}
@@ -60,7 +61,7 @@ import { push as Menu } from 'react-burger-menu'
                   />
                 ))}
                 <InfoWindow
-                  marker={activeMarker}
+                  position={windowPosition}
                   visible={showingInfoWindow}
                   onClose={onClose}
                 >

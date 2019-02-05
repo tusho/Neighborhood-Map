@@ -1,41 +1,44 @@
 import React, { Component } from 'react';
 import MapContainer from './Map'
 
-
-
-
-
 class App extends Component {
-
   state={
-  activeMarker: this.marker,
-  selectedVenue: this.props,
-  showingInfoWindow: false,
-  test: true
+    selectedVenue: this.props,
+    showingInfoWindow: false,
+    windowPosition: null,
+    loc: null
   }
 
+  toggleInfoWindow = (props, marker, loc) => {
+    console.log(loc)
+    if (loc == null) {
+      this.setState({ windowPosition: null })
+      return
+    }
+    let markerLoc = { lat: loc.latLng.lat(), lng: loc.latLng.lng() }
+    this.setState({
+      loc: loc,
+      windowPosition: markerLoc,
+      selectedVenue: props,
+      showingInfoWindow: true
 
-  onMarkerClick = (props, marker, e) =>
-  this.setState({
-    selectedVenue: props,
-    activeMarker: marker,
-    showingInfoWindow: true
-  });
+    })
+  }
 
   onListClick  = (e, venue, marker) => {
-    console.log(venue)
+    let markerLoc = { lat: venue.position.lat, lng: venue.position.lng }
+
     this.setState({
       showingInfoWindow: true,
       selectedVenue: venue,
-      activeMarker: e.target.value
+      windowPosition: markerLoc
     })
   }
 
   onClose = props => {
     if (this.state.showingInfoWindow) {
       this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
+        showingInfoWindow: false
       });
     }
   };
@@ -44,7 +47,7 @@ class App extends Component {
     return (
       <div className="App">
 
-        <MapContainer onMarkerClick={this.onMarkerClick} onListClick={this.onListClick} onClose={this.onClose} activeMarker={this.state.activeMarker} showingInfoWindow={this.state.showingInfoWindow} selectedVenue={this.state.selectedVenue} filterMarkers={this.filterMarkers}/>
+        <MapContainer toggleInfoWindow={this.toggleInfoWindow} onListClick={this.onListClick} onClose={this.onClose} windowPosition={this.state.windowPosition} showingInfoWindow={this.state.showingInfoWindow} selectedVenue={this.state.selectedVenue} filterMarkers={this.filterMarkers}/>
       </div>
     );
   }
