@@ -10,9 +10,10 @@ class App extends Component {
     test: true,
     windowPosition: null,
     loc: null,
-    activeMarker: null,
+    activeMarker: {},
     venues: [],
-    markers: []
+    markers: [],
+    map: null
   }
 
   fetchPlaces = (mapProps, map) => {
@@ -26,46 +27,59 @@ class App extends Component {
         id: venue.id,
       };
     });
+
     this.setState({
+      map: map,
       venues: venues,
       markers: markers
     });
-    console.log("this.state.venues", this.state.venues);
-    console.log("this.state.markers", this.state.markers);
   }
 
   toggleInfoWindow = (props, marker, loc) => {
-    console.log(marker)
- 
-    if (loc == null) {
-      this.setState({ windowPosition: null })
-      return
-    }
 
-    let markerLoc = { lat: loc.latLng.lat(), lng: loc.latLng.lng() }
+    marker.isOpen = true;
+    this.setState({
+      markers: Object.assign(this.state.markers, marker)
+    });
+
+    const venue = this.state.venues.find(venue => venue.name === props.name);
 
     marker.setAnimation(4);
 
     this.setState({
-      loc: loc,
-      windowPosition: markerLoc,
-      selectedVenue: props,
+      selectedVenue: venue,
       showingInfoWindow: true,
       activeMarker: marker
     })
   }
 
-  onListClick  = (e, venue) => {
-    console.log(this.state.activeMarker)
-    let markerLoc = { lat: venue.position.lat, lng: venue.position.lng }
+  handleMarkerClick = (marker, venue) => {
+    const newMarker = new google.maps.Marker({
+      map: this.state.map,
+      draggable: true,
+      isVisible: false,
+      isOpen: false,
+      position: {lat: marker.lat, lng: marker.lng},
+      animation: 4
+    });
 
-    this.state.marker.setAnimation(4);
+    this.state.markers.push(newMarker);
 
     this.setState({
       showingInfoWindow: true,
       selectedVenue: venue,
-      windowPosition: markerLoc
-    })
+      activeMarker: newMarker
+    });
+
+  };
+
+
+  onListClick  = (venue) => {
+
+    const marker = this.state.markers.find(marker => marker.id === venue.id);
+
+    this.handleMarkerClick(marker, venue);
+
   }
 
   onClose = props => {
@@ -81,6 +95,7 @@ class App extends Component {
       <div className="App">
 
         <MapContainer
+          venues={this.state.venues}
           toggleInfoWindow={this.toggleInfoWindow}
           onListClick={this.onListClick}
           onClose={this.onClose}

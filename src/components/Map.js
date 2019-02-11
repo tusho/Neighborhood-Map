@@ -12,8 +12,7 @@ import { push as Menu } from 'react-burger-menu'
       this.state = {
         displayedVenues: Venues,
         dropdownValue: 'selected',
-        showingInfoWindow: false,
-        activeMarker: {}
+        showingInfoWindow: false
       };
     }
 
@@ -35,12 +34,12 @@ import { push as Menu } from 'react-burger-menu'
 
     render() {
 
-      const {fetchPlaces, activeMarker, onClose, toggleInfoWindow, onListClick, showingInfoWindow, selectedVenue, windowPosition} = this.props
+      const {venues, fetchPlaces, activeMarker, onClose, toggleInfoWindow, onListClick, showingInfoWindow, selectedVenue, windowPosition} = this.props
 
       return (
         <div id="map">
             <Menu noOverlay width={ '350px' }>
-              <MenuBar displayedVenues={this.state.displayedVenues} handleEvent={this.handleEvent} resetFilter={this.resetFilter} dropdownValue={this.state.dropdownValue} onListClick={onListClick}/>
+              <MenuBar displayedVenues={venues} handleEvent={this.handleEvent} resetFilter={this.resetFilter} dropdownValue={this.state.dropdownValue} onListClick={onListClick}/>
             </Menu>
             <Map
                 google={this.props.google}
@@ -50,22 +49,21 @@ import { push as Menu } from 'react-burger-menu'
                     }}
                 zoom={15}
                 onReady={fetchPlaces}>
-                {this.state.displayedVenues.map((venue) => (
+                {venues.map((venue) => (
                   <Marker
-                  onClick={toggleInfoWindow}
-                  key={venue.id}
-                  name={venue.name}
-                  position={venue.position}
-                  latitude={venue.position.lng}
-                  longitute={venue.position.lat}
-                  category={venue.category}
-                  image={venue.image}
-                  address={venue.address}
+                    onClick={toggleInfoWindow}
+                    key={venue.id}
+                    name={venue.name}
+                    position={venue.position}
+                    latitude={venue.position.lng}
+                    longitute={venue.position.lat}
+                    category={venue.category}
+                    image={venue.image}
+                    address={venue.address}
                   />
                 ))}
                 <InfoWindow
-                  options={{pixelOffset: new google.maps.Size(0,-42)}}
-                  position={windowPosition}
+                  marker={activeMarker}
                   visible={showingInfoWindow}
                   onClose={onClose}
                 >
