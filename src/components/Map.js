@@ -1,3 +1,4 @@
+/*global google*/
 import React, { Component } from 'react';
 import {Map, Marker, GoogleApiWrapper, InfoWindow} from 'google-maps-react'
 import {Venues}  from './Venues'
@@ -11,13 +12,14 @@ import { push as Menu } from 'react-burger-menu'
       this.state = {
         displayedVenues: Venues,
         dropdownValue: 'selected',
-        showingInfoWindow: false
+        showingInfoWindow: false,
+        activeMarker: {}
       };
     }
 
     handleEvent  = (e) => {
+
       const selectedMarker = e.target.value
-      console.log(this.dropdownValue)
       this.setState(prevState => ({
         displayedVenues: Venues.filter(venue => venue.category.toLowerCase() === selectedMarker),
         dropdownValue: selectedMarker
@@ -33,7 +35,7 @@ import { push as Menu } from 'react-burger-menu'
 
     render() {
 
-      const {onClose, toggleInfoWindow, onListClick, showingInfoWindow, selectedVenue, windowPosition} = this.props
+      const {activeMarker, onClose, toggleInfoWindow, onListClick, showingInfoWindow, selectedVenue, windowPosition} = this.props
 
       return (
         <div id="map">
@@ -61,6 +63,7 @@ import { push as Menu } from 'react-burger-menu'
                   />
                 ))}
                 <InfoWindow
+                  options={{pixelOffset: new google.maps.Size(0,-42)}}
                   position={windowPosition}
                   visible={showingInfoWindow}
                   onClose={onClose}
