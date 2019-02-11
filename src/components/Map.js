@@ -35,7 +35,7 @@ import { push as Menu } from 'react-burger-menu'
 
     render() {
 
-      const {activeMarker, onClose, toggleInfoWindow, onListClick, showingInfoWindow, selectedVenue, windowPosition} = this.props
+      const {fetchPlaces, activeMarker, onClose, toggleInfoWindow, onListClick, showingInfoWindow, selectedVenue, windowPosition} = this.props
 
       return (
         <div id="map">
@@ -48,7 +48,8 @@ import { push as Menu } from 'react-burger-menu'
                     lat: -33.870843,
                     lng: 151.209900
                     }}
-                zoom={15}>
+                zoom={15}
+                onReady={fetchPlaces}>
                 {this.state.displayedVenues.map((venue) => (
                   <Marker
                   onClick={toggleInfoWindow}
