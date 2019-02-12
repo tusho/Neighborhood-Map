@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import MapContainer from './Map'
-import { Venues } from './Venues';
+import { Venues } from './Venues'
+import axios from 'axios'
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +12,9 @@ class App extends Component {
       activeMarker: {},
       venues: [],
       markers: [],
-      map: null
+      map: null,
+      foursquareVenues: [],
+      myTrial: []
     };
   }
 
@@ -40,6 +43,43 @@ class App extends Component {
       venues: venues,
       markers: markers
     });
+
+    this.getVenues()
+
+  }
+
+  getVenues = () => {
+    console.log(this.state.forsquareVenues)
+      let trial = this.state.venues.map(myvenue => {
+        let myVariable
+        const endPoint = myvenue.foursquareID
+        const parameters = {
+          client_id: "V3WF0H0AMSYWU0PE441PJTNDJJBWMLMZIM4TTZ1W4QZHCHQM",
+          client_secret: "VYL03E3TF244H02NY2WDNCGPEGRVOJRA1JICGYZ33ZFYAF2K",
+          v: "20180323"
+        }
+  
+        axios.get(endPoint + new URLSearchParams(parameters))
+          .then(response => {
+            console.log(response.data.response.venue.name)
+            // this.setState(prevState => ({
+            //   foursquareVenues: [...prevState.foursquareVenues, response.data.response.venue]
+            // }))
+            myVariable = response.data.response.venue.name
+          })
+          .catch(error => {
+            console.log("Error." + error)
+          })
+          console.log(myVariable)
+
+
+      })
+
+      this.setState({
+        myTrial: trial
+      })
+      
+
   }
 
   onMarkerClick  = (venue) => {
