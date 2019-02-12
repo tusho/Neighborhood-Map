@@ -96,7 +96,7 @@ export class MapContainer extends Component {
                   <ul>
                     <li>Address: {selectedVenue.address}</li>
                     <li>Category: {selectedVenue.category}</li>
-                    {this.state.foursquareselect ? <li>Rating: {foursquareselect.rating} <span className="dislaimer"> Powered by Foursquare</span></li>: <p className="disclaimer">No Foursquare Data Available</p> }
+                    {this.props.foursquareVenues.length === 0 ? <p className="disclaimer">No Foursquare Data Available</p> : <li>Rating: {foursquareselect.rating} <span className="disclaimer"> (Powered by Foursquare)</span></li> }
                   </ul>
                 </div>
               </InfoWindow>

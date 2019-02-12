@@ -49,31 +49,27 @@ class App extends Component {
   }
 
   getVenues = () => {
-    let requestID = "https://api.foursquare.com/v2/multi?requests="
-    let i
-    for (i = 0; i < this.state.venues.length; i++) {
-      requestID += "/venues/:" + this.state.venues[i].foursquareID + ",";
-    }
-    requestID = requestID.substring(0, requestID.length - 1);
-    alert(requestID)
-
-    const endPoint = requestID
-    const parameters = {
-      // client_id: "IPG0YRDNZG3VCUSCGQRUCFRFVWD5F5E1YT5D5LPKMWPARPRJ",
-      // client_secret: "LXXG2QMZA0D1NC1H2AOBHTYTPOS0PRGW5QDJFZTA31JTP1A4",
-      v: "20180323"
-    }
-  
-    axios.get(endPoint + new URLSearchParams(parameters))
-      .then(response => {
-        this.setState(prevState => ({
-          foursquareVenues: [...prevState.foursquareVenues, response.data.response.venue]
-        }))
+    {this.state.venues.map(myvenue => {
+      const endPoint = myvenue.foursquareID
+      const parameters = {
+        // client_id: "V3WF0H0AMSYWU0PE441PJTNDJJBWMLMZIM4TTZ1W4QZHCHQM",
+        // client_secret: "VYL03E3TF244H02NY2WDNCGPEGRVOJRA1JICGYZ33ZFYAF2K",
+        // client_id: "IPG0YRDNZG3VCUSCGQRUCFRFVWD5F5E1YT5D5LPKMWPARPRJ",
+        // client_secret: "LXXG2QMZA0D1NC1H2AOBHTYTPOS0PRGW5QDJFZTA31JTP1A4",
+        v: "20190213"
+      }
+    
+      axios.get(endPoint + new URLSearchParams(parameters))
+        .then(response => {
+          this.setState(prevState => ({
+            foursquareVenues: [...prevState.foursquareVenues, response.data.response.venue]
+          }))
+        })
+        .catch(error => {
+          console.log("Foursquare API Error:" + error)
+        })
       })
-      .catch(error => {
-        console.log("Foursquare API Error:" + error)
-      })
-
+    }
   }
 
   onMarkerClick  = (venue) => {
@@ -86,7 +82,7 @@ class App extends Component {
       activeMarker: marker,
       foursquareselect: foursquareselect
     });
-    // console.log(foursquareselect.bestPhoto.suffix)
+    console.log(foursquareselect)
   }
 
   onClose = props => {

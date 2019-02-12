@@ -6,7 +6,7 @@ export const Venues = [
         address: '155 Victoria St, Potts Point, NSW 2011',
         image: 'https://smudgeeats.com/wp-content/uploads/2015/03/Restaurant_Sydney_MsGs-7-720x480.jpg',
         id: '1',
-        foursquareID: '4d09d0b786b0236a522bb606?'
+        foursquareID: 'https://api.foursquare.com/v2/venues/4d09d0b786b0236a522bb606?'
     },
     {
         name: 'The Lobo Plantation',
@@ -15,7 +15,7 @@ export const Venues = [
         address: '1/209 Clarence St, Sydney, NSW 2000',
         image: 'https://www.urbanchicguides.com/wp-content/uploads/2013/07/The-Lobo-Plantation2-e1439705297688.jpg',
         id: '2',
-        foursquareID: '51d2e9f85019fdda2a2a2043?'
+        foursquareID: 'https://api.foursquare.com/v2/venues/51d2e9f85019fdda2a2a2043?'
     },
     {
         name: "Pablo & Rusty's",
@@ -24,7 +24,7 @@ export const Venues = [
         address: '1 Castlereagh Street, Sydney, NSW 2000',
         image: 'https://smudgeeats.com/wp-content/uploads/2015/06/Cafe_Sydney_PabloRustys-1-720x480.jpg',
         id: '3',
-        foursquareID: '51e33ec8498ea1b062cbbb66?'
+        foursquareID: 'https://api.foursquare.com/v2/venues/51e33ec8498ea1b062cbbb66?'
     },
     {
         name: "Bulletin Place",
@@ -33,7 +33,7 @@ export const Venues = [
         address: '10-14 Bulletin Place, Sydney, NSW 2000',
         image: 'https://www.broadsheet.com.au/media/cache/7d/bc/7dbc6c6cc3ae320e936be19fa12dae52.jpg',
         id: '4',
-        foursquareID: '50e3f051e4b0b781c044b64e?'
+        foursquareID: 'https://api.foursquare.com/v2/venues/50e3f051e4b0b781c044b64e?'
     },
     {
         name: "Restaurant Hubert",
@@ -42,6 +42,6 @@ export const Venues = [
         address: '15 Bligh Street, Sydney NSW 2000',
         image: 'https://c2.staticflickr.com/8/7613/27139903630_b3f75bd617_b.jpg',
         id: '4',
-        foursquareID: '5673980f498e586247129b29?'
+        foursquareID: 'https://api.foursquare.com/v2/venues/5673980f498e586247129b29?'
     },
 ];
