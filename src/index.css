@@ -13,6 +13,11 @@ code {
     monospace;
 }
 
+
+.info-headline {
+  font-size: 1.3em;
+}
+
 #map {
   position: absolute;
   width: 100%;
@@ -29,6 +34,19 @@ code {
   padding: 10px 5px;
   text-align: left;
 }
+
+.venue-item:hover {
+  cursor: pointer;
+}
+
+
+.venue-image {
+  height: 210px;
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+
 
 .filter-dropdown {
   border-radius: 0px;
@@ -53,6 +71,11 @@ code {
   color: #15778C;
   cursor: pointer;
   padding-bottom: 1px;
+}
+
+.disclaimer {
+  color: grey;
+  font-size: 0.8em;
 }
 
 /* Burger Button */
