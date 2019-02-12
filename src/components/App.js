@@ -1,31 +1,37 @@
-/*global google*/
 import React, { Component } from 'react';
 import MapContainer from './Map'
 import { Venues } from './Venues';
 
 class App extends Component {
-  state={
-    selectedVenue: this.props,
-    showingInfoWindow: false,
-    test: true,
-    windowPosition: null,
-    loc: null,
-    activeMarker: {},
-    venues: [],
-    markers: [],
-    map: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedVenue: {},
+      showingInfoWindow: false,
+      activeMarker: {},
+      venues: [],
+      markers: [],
+      map: null
+    };
   }
 
-  fetchPlaces = (mapProps, map) => {
+  initializeMap = (mapProps, map) => {
     const venues = Venues;
+    const self = this
+
     const markers = venues.map(venue => {
-      return {
-        lat: venue.position.lat,
-        lng: venue.position.lng,
-        isOpen: false,
-        isVisible: true,
-        id: venue.id,
-      };
+      venue.marker = new window.google.maps.Marker({
+          position: {lat: venue.position.lat, lng: venue.position.lng},
+          map: map,
+          title: venue.name,
+          animation : window.google.maps.Animation.DROP
+        });
+
+      venue.marker.addListener('click', function() {
+
+      self.onMarkerClick(venue);
+      })
+      return venue.marker
     });
 
     this.setState({
@@ -35,51 +41,14 @@ class App extends Component {
     });
   }
 
-  toggleInfoWindow = (props, marker, loc) => {
-
-    marker.isOpen = true;
-    this.setState({
-      markers: Object.assign(this.state.markers, marker)
-    });
-
-    const venue = this.state.venues.find(venue => venue.name === props.name);
-
+  onMarkerClick  = (venue) => {
+    const marker = this.state.markers.find(marker => marker.title === venue.name);
     marker.setAnimation(4);
-
     this.setState({
-      selectedVenue: venue,
       showingInfoWindow: true,
+      selectedVenue: venue,
       activeMarker: marker
-    })
-  }
-
-  handleMarkerClick = (marker, venue) => {
-    const newMarker = new google.maps.Marker({
-      map: this.state.map,
-      draggable: true,
-      isVisible: false,
-      isOpen: false,
-      position: {lat: marker.lat, lng: marker.lng},
-      animation: 4
     });
-
-    this.state.markers.push(newMarker);
-
-    this.setState({
-      showingInfoWindow: true,
-      selectedVenue: venue,
-      activeMarker: newMarker
-    });
-
-  };
-
-
-  onListClick  = (venue) => {
-
-    const marker = this.state.markers.find(marker => marker.id === venue.id);
-
-    this.handleMarkerClick(marker, venue);
-
   }
 
   onClose = props => {
@@ -93,18 +62,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
         <MapContainer
+          initializeMap={this.initializeMap}
           venues={this.state.venues}
-          toggleInfoWindow={this.toggleInfoWindow}
-          onListClick={this.onListClick}
+          onMarkerClick={this.onMarkerClick}
           onClose={this.onClose}
-          windowPosition={this.state.windowPosition}
           showingInfoWindow={this.state.showingInfoWindow}
           selectedVenue={this.state.selectedVenue}
-          filterMarkers={this.filterMarkers}
           activeMarker={this.state.activeMarker}
-          fetchPlaces={this.fetchPlaces}/>
+        />
       </div>
     );
   }
