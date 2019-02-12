@@ -14,7 +14,7 @@ class App extends Component {
       markers: [],
       map: null,
       foursquareVenues: [],
-      myTrial: []
+      foursquareselect: {}
     };
   }
 
@@ -50,46 +50,40 @@ class App extends Component {
 
   getVenues = () => {
     console.log(this.state.forsquareVenues)
-      let trial = this.state.venues.map(myvenue => {
-        let myVariable
+      // eslint-disable-next-line no-lone-blocks
+      {this.state.venues.map(myvenue => {
         const endPoint = myvenue.foursquareID
         const parameters = {
-          client_id: "V3WF0H0AMSYWU0PE441PJTNDJJBWMLMZIM4TTZ1W4QZHCHQM",
-          client_secret: "VYL03E3TF244H02NY2WDNCGPEGRVOJRA1JICGYZ33ZFYAF2K",
+          client_id: "IPG0YRDNZG3VCUSCGQRUCFRFVWD5F5E1YT5D5LPKMWPARPRJ",
+          client_secret: "LXXG2QMZA0D1NC1H2AOBHTYTPOS0PRGW5QDJFZTA31JTP1A4",
           v: "20180323"
         }
   
         axios.get(endPoint + new URLSearchParams(parameters))
           .then(response => {
-            console.log(response.data.response.venue.name)
-            // this.setState(prevState => ({
-            //   foursquareVenues: [...prevState.foursquareVenues, response.data.response.venue]
-            // }))
-            myVariable = response.data.response.venue.name
+            this.setState(prevState => ({
+              foursquareVenues: [...prevState.foursquareVenues, response.data.response.venue]
+            }))
           })
           .catch(error => {
-            console.log("Error." + error)
+            alert("Foursquare API Error:" + error)
           })
-          console.log(myVariable)
 
-
-      })
-
-      this.setState({
-        myTrial: trial
-      })
-      
-
+        })
+      }
   }
 
   onMarkerClick  = (venue) => {
     const marker = this.state.markers.find(marker => marker.title === venue.name);
+    const foursquareselect = this.state.foursquareVenues.find(foursquarevenue => foursquarevenue.name === venue.name)
     marker.setAnimation(4);
     this.setState({
       showingInfoWindow: true,
       selectedVenue: venue,
-      activeMarker: marker
+      activeMarker: marker,
+      foursquareselect: foursquareselect
     });
+    console.log(foursquareselect.bestPhoto.suffix)
   }
 
   onClose = props => {
@@ -111,6 +105,8 @@ class App extends Component {
           showingInfoWindow={this.state.showingInfoWindow}
           selectedVenue={this.state.selectedVenue}
           activeMarker={this.state.activeMarker}
+          foursquareVenues={this.state.foursquareVenues}
+          foursquareselect={this.state.foursquareselect}
         />
       </div>
     );

@@ -6,7 +6,7 @@ class MenuBar extends React.Component {
 
   render() {
 
-    const {displayedVenues, onListChange, resetFilter, onListClick, dropdownValue} = this.props
+    const {displayedVenues, onListChange, resetFilter, onMarkerClick, dropdownValue} = this.props
 
     let clearFilter
     displayedVenues.sort(sortBy('name'));
@@ -31,7 +31,7 @@ class MenuBar extends React.Component {
 
           <ul className="venue-list">
               {displayedVenues.map((venue) => (
-                  <li className="venue-item" key={venue.name} onClick={(e) => onListClick(venue)}>{venue.name}</li>
+                  <li className="venue-item" key={venue.name} onClick={(e) => onMarkerClick(venue)}>{venue.name}</li>
               ))}
           </ul>
       </div>

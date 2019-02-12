@@ -38,7 +38,8 @@ export class MapContainer extends Component {
         onClose,
         onMarkerClick,
         showingInfoWindow,
-        selectedVenue
+        selectedVenue,
+        foursquareselect
       } = this.props
 
       let displayedVenues = this.props.venues.filter(venue => {
@@ -65,7 +66,7 @@ export class MapContainer extends Component {
                 onListChange={this.onListChange}
                 resetFilter={this.resetFilter}
                 dropdownValue={this.state.dropdownValue}
-                onListClick={onMarkerClick}
+                onMarkerClick={onMarkerClick}
                 venues={this.props.venues}
               />
             </Menu>
@@ -84,10 +85,11 @@ export class MapContainer extends Component {
               >
                 <div>
                   <h4>{selectedVenue.name}</h4>
-                  <div className="venue-image" style={{ width: 200, height: 200, backgroundImage: `url(${selectedVenue.image})` }}></div>
+                  <div className="venue-image" style={{ width: 200, height: 200, backgroundImage: "url(" + selectedVenue.image + ")"}}></div>
                   <ul>
                     <li>Address: {selectedVenue.address}</li>
                     <li>Category: {selectedVenue.category}</li>
+                    <li>Rating: {foursquareselect.rating}</li>
                   </ul>
                 </div>
               </InfoWindow>
