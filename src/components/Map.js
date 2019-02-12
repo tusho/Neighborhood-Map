@@ -7,31 +7,32 @@ export class MapContainer extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        displayedVenues: props.venues,
         dropdownValue: 'selected',
         showingInfoWindow: false
       };
     }
 
-    handleEvent  = (e) => {
-      const selectedMarker = e.target.value
-      this.setState(prevState => ({
-        displayedVenues: this.props.venues.filter(venue => venue.category.toLowerCase() === selectedMarker),
-        dropdownValue: selectedMarker
-      }))
+    onListChange  = (e) => {
+      const selectedCategory = e.target.value
+      const updatedVenues = this.props.venues.filter(venue => venue.category.toLowerCase() === selectedCategory);
+      this.setState({
+        displayedVenues: updatedVenues,
+        dropdownValue: selectedCategory
+      })
+      this.props.onClose()
     }
-
+  
     resetFilter  = () => {
       this.setState(prevState => ({
         displayedVenues: this.props.venues,
         dropdownValue: 'selected'
       }))
+      this.props.onClose()
     }
 
     render() {
-
+      
       const {
-        venues,
         initializeMap,
         activeMarker,
         onClose,
@@ -40,15 +41,32 @@ export class MapContainer extends Component {
         selectedVenue
       } = this.props
 
+      let displayedVenues = this.props.venues.filter(venue => {
+        const category = venue.category.toLowerCase();
+        const dropdown = this.state.dropdownValue;
+  
+        if (category.includes(dropdown) || this.state.dropdownValue === 'selected') {
+            venue.marker.setVisible(true);
+            return venue;
+        } else {
+          if (venue.marker) {
+            venue.marker.setVisible(false);
+          }
+        }
+        return null;
+      })
+  
+
       return (
         <div id="map">
             <Menu noOverlay width={ '350px' }>
               <MenuBar
-                displayedVenues={venues}
-                handleEvent={this.handleEvent}
+                displayedVenues={displayedVenues}
+                onListChange={this.onListChange}
                 resetFilter={this.resetFilter}
                 dropdownValue={this.state.dropdownValue}
                 onListClick={onMarkerClick}
+                venues={this.props.venues}
               />
             </Menu>
             <Map

@@ -24,9 +24,10 @@ class App extends Component {
           position: {lat: venue.position.lat, lng: venue.position.lng},
           map: map,
           title: venue.name,
-          animation : window.google.maps.Animation.DROP
+          animation : window.google.maps.Animation.DROP,
+          category: venue.category
         });
-
+      
       venue.marker.addListener('click', function() {
 
       self.onMarkerClick(venue);
