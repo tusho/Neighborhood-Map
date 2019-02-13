@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   getVenues = () => {
-    {this.state.venues.map(myvenue => {
+    this.state.venues.forEach(myvenue => {
       const endPoint = myvenue.foursquareID
       const parameters = {
         // client_id: "V3WF0H0AMSYWU0PE441PJTNDJJBWMLMZIM4TTZ1W4QZHCHQM",
@@ -68,9 +68,9 @@ class App extends Component {
         .catch(error => {
           console.log("Foursquare API Error:" + error)
         })
-      })
-    }
+    })
   }
+  
 
   onMarkerClick  = (venue) => {
     const marker = this.state.markers.find(marker => marker.title === venue.name);
@@ -82,7 +82,6 @@ class App extends Component {
       activeMarker: marker,
       foursquareselect: foursquareselect
     });
-    console.log(foursquareselect)
   }
 
   onClose = props => {

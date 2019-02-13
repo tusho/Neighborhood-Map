@@ -8,13 +8,7 @@ class MenuBar extends React.Component {
 
     const {displayedVenues, onListChange, resetFilter, onMarkerClick, dropdownValue} = this.props
 
-    let clearFilter
     displayedVenues.sort(sortBy('name'));
-
-    if (displayedVenues.length !== this.props.venues.length) {
-        clearFilter = <button className="clearFilter" onClick={resetFilter}>(Clear Filter)</button>
-    }
-
 
     return (
       <div className="menuBar">
@@ -27,11 +21,12 @@ class MenuBar extends React.Component {
                   <option value="restaurant">Restaurants</option>
               </select>
             </div>
-          <p className="filterCopy">Showing {displayedVenues.length} of {this.props.venues.length} locations. {clearFilter}</p>
+          <p className="filterCopy" role="note">Showing {displayedVenues.length} of {this.props.venues.length} locations.</p>
+          {displayedVenues.length !== this.props.venues.length ? <span className="clearFilter" tabIndex="0" aria-label="clear filter" onKeyPress={resetFilter} onClick={resetFilter}>(Clear Filter)</span> : null}
 
           <ul className="venue-list">
               {displayedVenues.map((venue) => (
-                  <li className="venue-item" key={venue.name} onClick={(e) => onMarkerClick(venue)}>{venue.name}</li>
+                  <li className="venue-item" role="button" aria-label={venue.name} tabIndex="0" onKeyPress={(e) => onMarkerClick(venue)} key={venue.name} onClick={(e) => onMarkerClick(venue)}>{venue.name}</li>
               ))}
           </ul>
       </div>

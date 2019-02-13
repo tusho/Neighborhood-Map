@@ -66,7 +66,7 @@ export class MapContainer extends Component {
   
 
       return (
-        <div id="map">
+        <div id="map" role="application" aria-label="Map of inner Sydney">
             <Menu noOverlay width={ '350px' }>
               <MenuBar
                 displayedVenues={displayedVenues}
@@ -92,7 +92,7 @@ export class MapContainer extends Component {
               >
                 <div className="info-box">
                   <h4 className="info-headline">{selectedVenue.name}</h4>
-                  <div className="venue-image" style={{ backgroundImage: "url(" + selectedVenue.image + ")"}}></div>
+                  <div className="venue-image" style={{ backgroundImage: "url(" + selectedVenue.image + ")"}} title={selectedVenue.name}></div>
                   <ul>
                     <li>Address: {selectedVenue.address}</li>
                     <li>Category: {selectedVenue.category}</li>
