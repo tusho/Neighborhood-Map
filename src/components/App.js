@@ -18,6 +18,7 @@ class App extends Component {
     };
   }
 
+  // Initialize the map and is called through the google map api's onready call
   initializeMap = (mapProps, map) => {
     const venues = Venues;
     const self = this
@@ -48,6 +49,7 @@ class App extends Component {
 
   }
 
+  // Fetch data from Foursquare based on the Venue URL populated in the list of venues
   getVenues = () => {
     this.state.venues.forEach(myvenue => {
       const endPoint = myvenue.foursquareID
@@ -71,7 +73,7 @@ class App extends Component {
     })
   }
   
-
+// Open the infoWindow and show data of the selected venue including the corresponding Foursquare rating
   onMarkerClick  = (venue) => {
     const marker = this.state.markers.find(marker => marker.title === venue.name);
     const foursquareselect = this.state.foursquareVenues.find(foursquarevenue => foursquarevenue.name === venue.name)
@@ -84,6 +86,7 @@ class App extends Component {
     });
   }
 
+// Close the infoWindow
   onClose = props => {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -91,6 +94,7 @@ class App extends Component {
       });
     }
   };
+
 
   render() {
     return (

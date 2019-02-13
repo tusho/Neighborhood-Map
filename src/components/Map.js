@@ -15,7 +15,7 @@ export class MapContainer extends Component {
     }
 
 
-
+//  Update the list of venues to be displayed in the sidebar and on the map
     onListChange  = (e) => {
       const selectedCategory = e.target.value
       const updatedVenues = this.props.venues.filter(venue => venue.category.toLowerCase() === selectedCategory);
@@ -26,6 +26,7 @@ export class MapContainer extends Component {
       this.props.onClose()
     }
   
+//  Clear the filter
     resetFilter  = () => {
       this.setState(prevState => ({
         displayedVenues: this.props.venues,
@@ -48,7 +49,7 @@ export class MapContainer extends Component {
         foursquareselect
       } = this.props
 
-      
+    //  Update marker visibility based on filter dropdown value
       let displayedVenues = this.props.venues.filter(venue => {
         const category = venue.category.toLowerCase();
         const dropdown = this.state.dropdownValue;
