@@ -54,8 +54,9 @@ class App extends Component {
     this.state.venues.forEach(myvenue => {
       const endPoint = myvenue.foursquareID
       const parameters = {
-        // client_id: "V3WF0H0AMSYWU0PE441PJTNDJJBWMLMZIM4TTZ1W4QZHCHQM",
-        // client_secret: "VYL03E3TF244H02NY2WDNCGPEGRVOJRA1JICGYZ33ZFYAF2K",
+        client_id: "V3WF0H0AMSYWU0PE441PJTNDJJBWMLMZIM4TTZ1W4QZHCHQM",
+        client_secret: "VYL03E3TF244H02NY2WDNCGPEGRVOJRA1JICGYZ33ZFYAF2K",
+        // Should Foursquare not work due to reaching the request limit, uncomment the below credentials and comment out the above credentials.
         // client_id: "IPG0YRDNZG3VCUSCGQRUCFRFVWD5F5E1YT5D5LPKMWPARPRJ",
         // client_secret: "LXXG2QMZA0D1NC1H2AOBHTYTPOS0PRGW5QDJFZTA31JTP1A4",
         v: "20190213"
